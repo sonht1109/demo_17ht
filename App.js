@@ -1,9 +1,11 @@
 import React from 'react'
-import { View } from 'react-native';
+import Signup from './pages/Signup';
 
-const App = ()=>{
-  return(
-    <View></View>
+const App = () => {
+  return (
+    <>
+      <Signup />
+    </>
   )
 }
 

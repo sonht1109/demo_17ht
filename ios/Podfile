@@ -8,6 +8,8 @@ target 'demo_17ht' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'RNCPicker', :path => '../node_modules/@react-native-community/picker'
+
   target 'demo_17htTests' do
     inherit! :complete
     # Pods for testing
