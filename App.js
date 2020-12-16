@@ -1,13 +1,16 @@
 import React from 'react'
-import Signup from './src/pages/Signup';
 import { StyleSheet, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import SignupTab from './src/pages/SignupTab';
 
 const App = () => {
-  return (
-    <View style={styles.container}>
-      <Signup />
-    </View>
-    
+  return (  
+      // <View style={styles.container}>
+      //   <SignupTab />
+      // </View>
+      <NavigationContainer>
+        <SignupTab/>
+      </NavigationContainer>
   )
 }
 
