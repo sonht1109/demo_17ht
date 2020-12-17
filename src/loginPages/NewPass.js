@@ -38,7 +38,7 @@ const NewPass = () => {
                     <Text style={styles.mess}>Password does not match</Text>
                 }
 
-                <TouchableOpacity style={globalStyles.button}>
+                <TouchableOpacity style={globalStyles.button} onPress={()=>navigation.navigate("Success")}>
                     <Text style={{ textAlign: "center", fontWeight: "bold" }}>Confirm</Text>
                 </TouchableOpacity>
 

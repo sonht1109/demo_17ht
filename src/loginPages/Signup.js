@@ -17,17 +17,17 @@ const Signup = ({ navigation }) => {
 	const [code, setCode] = useState('');
 
 	const checkSubmit = () => {
-		if (text !== '') {
-			if (pass.length > 7) {
-				if (code === '') {
-					if (isLogin) {
-						return true;
-					}
-					return false;
-				}
-				else return true;
-			}
-		}
+		// if (text !== '') {
+		// 	if (pass.length > 7) {
+		// 		if (code === '') {
+		// 			if (isLogin) {
+		// 				return true;
+		// 			}
+		// 			return false;
+		// 		}
+		// 		else return true;
+		// 	}
+		// }
 		return false;
 	}
 
@@ -41,7 +41,7 @@ const Signup = ({ navigation }) => {
 						transparent={true}
 						visible={showModal}
 						style={globalStyles.modal}
-						onRequestClose={() => setShowModal(false)}
+						// onRequestClose={() => setShowModal(false)}
 					>
 						<View style={globalStyles.modal}>
 							<Text style={[styles.modalPicker, { padding: 20, textAlign: "center" }]}>Language</Text>
@@ -111,7 +111,7 @@ const Signup = ({ navigation }) => {
 						pass.length < 8 && pass.length > 0 &&
 						<Text style={{ color: '#eb5757', fontSize: 12, lineHeight: 16 }}>
 							Password must be at least 8 characters, uppercase letters and numbers
-            </Text>
+            			</Text>
 					}
 
 					{
@@ -127,7 +127,7 @@ const Signup = ({ navigation }) => {
 								setIsLogin(!isLogin);
 								setCode('');
 							}}>
-							{isLogin ? "or Signup" : "or Login"}
+							{isLogin ? "or Sign up" : "or Log in"}
 						</Text>
 
 						{
@@ -151,10 +151,11 @@ const Signup = ({ navigation }) => {
 								Alert.alert(mess);
 							}}>
 							<Text style={{ fontWeight: "bold", textAlign: "center" }}>
-								{isLogin ? "Login" : "Signup"}
+								{isLogin ? "Log in" : "Sign up"}
 							</Text>
 						</TouchableOpacity>
 					</View>
+
 				</View>
 			</View>
 		</TouchableWithoutFeedback>

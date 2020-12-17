@@ -4,6 +4,7 @@ import Signup from './Signup';
 import ForgotPass from './ForgotPass';
 import VerifyNumber from './VerifyNumber';
 import NewPass from './NewPass';
+import GetPassSuccess from './GetPassSuccess';
 
 const SignupStack = createStackNavigator();
 
@@ -13,7 +14,7 @@ const SignupTab = ()=>{
         screenOptions={{
             headerStyle: {
                 elevation: 0
-            }
+            },
         }}>
             <SignupStack.Screen
             name="Signup"
@@ -42,6 +43,14 @@ const SignupTab = ()=>{
             component={NewPass}
             options={{
                 title: ""
+            }}
+            />
+
+            <SignupStack.Screen
+            name="Success"
+            component={GetPassSuccess}
+            options={{
+                headerShown: false
             }}
             />
         </SignupStack.Navigator>

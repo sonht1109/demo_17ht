@@ -5,7 +5,14 @@ const globalStyles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        padding: 30,
+        paddingHorizontal: 30,
+        paddingBottom: 30,
+        backgroundColor: "white"
+    },
+    smallContainer: {
+        width: "100%",
+        paddingHorizontal: 20,
+        paddingBottom: 20,
         backgroundColor: "white"
     },
     input: {

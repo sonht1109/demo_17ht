@@ -16,12 +16,13 @@ const ForgotPass = () => {
                     value={text}
                     placeholder="Phone"
                     style={globalStyles.input}
+                    keyboardType="numeric"
                 />
                 <View>
                 <TouchableOpacity
                 style={globalStyles.button}
                 onPress={()=>navigation.navigate
-                    ("Verify number", {phone: "+84329271723"})
+                    ("Verify number", {phone: text})
                 }
                 >
                     <Text style={{textAlign: "center", fontWeight: "bold"}}>Next</Text>
