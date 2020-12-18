@@ -5,6 +5,7 @@ import terms from './terms';
 import globalStyles from '../../styles';
 import CustomButton from '../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import Title from '../components/Title';
 
 const renderItem = (item, index) => {
     return (
@@ -19,9 +20,7 @@ const Policy = () => {
     const navigation = useNavigation()
     return (
         <ScrollView style={[globalStyles.smallContainer]}>
-            <Text style={{ fontWeight: '700', fontSize: 22 }}>
-                Personal information protection
-            </Text>
+            <Title title="Personal information protection" style={{paddingHorizontal: 0}} />
             {/* <FlatList
                 nestedScrollEnabled={true}
                 data={terms}

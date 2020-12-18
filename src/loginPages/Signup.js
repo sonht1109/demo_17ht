@@ -6,6 +6,20 @@ import {
 	from 'react-native';
 import { Picker } from '@react-native-community/picker';
 import globalStyles from '../../styles';
+import locales from '../locales';
+
+const mapLocale = (locale, setLocale, setShowModal) => {
+	return locales.map((item, index) => {
+		return (
+			<View style={locale === item.key && styles.isPicked} key={index}>
+				<Text style={{ padding: 20 }} onPress={() => {
+					setLocale(item.key);
+					setShowModal(false);
+				}}>{item.name}</Text>
+			</View>
+		)
+	})
+}
 
 const Signup = ({ navigation }) => {
 	const [selectedItem, setSelectedItem] = useState('+84');
@@ -41,24 +55,13 @@ const Signup = ({ navigation }) => {
 						transparent={true}
 						visible={showModal}
 						style={globalStyles.modal}
-						// onRequestClose={() => setShowModal(false)}
+					// onRequestClose={() => setShowModal(false)}
 					>
 						<View style={globalStyles.modal}>
 							<Text style={[styles.modalPicker, { padding: 20, textAlign: "center" }]}>Language</Text>
 
 							<View style={styles.modalPicker}>
-								<View style={locale === 'vi' && styles.isPicked}>
-									<Text style={{ padding: 20 }} onPress={() => {
-										setLocale("vi");
-										setShowModal(false);
-									}}>Tieng Viet</Text>
-								</View>
-								<View style={locale === "en" && styles.isPicked}>
-									<Text style={{ padding: 20 }} onPress={() => {
-										setLocale("en");
-										setShowModal(false);
-									}}>English</Text>
-								</View>
+								{mapLocale(locale, setLocale, setShowModal)}
 							</View>
 						</View>
 					</Modal>
@@ -134,7 +137,7 @@ const Signup = ({ navigation }) => {
 							isLogin &&
 							<Text
 								style={{ marginLeft: "auto", color: "#f2c94c" }}
-								onPress={()=>navigation.navigate("Forgot password")}>
+								onPress={() => navigation.navigate("Forgot password")}>
 								Forgot password ?
 							</Text>
 						}

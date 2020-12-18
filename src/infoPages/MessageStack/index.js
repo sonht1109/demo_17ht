@@ -1,37 +1,61 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Image, Text, View } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import globalStyles from '../../../styles';
 import messages from './messages';
+import { useNavigation } from '@react-navigation/native';
+import Title from '../../components/Title';
 
-const renderItem = ({ item }) => {
+const renderItem = ({ item }, navigation, mess, setMess) => {
     return (
-        <View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Image source={require('../../../assets/img/mess.png')} />
-                <Text style={{ flexGrow: 1, marginLeft: 10, fontWeight: "700" }}>{item.title}</Text>
-                {
-                    item.isRead === false &&
-                    <Image source={require('../../../assets/img/isRead.png')} />
-                }
+        <TouchableOpacity
+        onPress={()=>{
+            let temp = mess;
+            temp[item.id - 1].isRead = true;
+            setMess([...temp])
+            navigation.navigate("Mess Detail", {item})
+        }}
+        >
+            <View style={{ paddingVertical: 15 }}>
+                <View style={{ flexDirection: "row" }}>
+                    <Image source={require('../../../assets/img/mess.png')} width={15} height={15} style={{marginTop: 2}} />
+                    <View style={{ marginLeft: 10, flex: 1 }}>
+                        <Text style={{ fontWeight: "700" }}>
+                            {item.title}
+                        </Text>
+                        <Text
+                        style={{ fontSize: 13, color: "#acacac", marginTop: 8, marginBottom: 15 }} numberOfLines={2} ellipsizeMode="tail">
+                            {item.detail}
+                        </Text>
+                    </View>
+                    {
+                        item.isRead === false &&
+                        <Image source={require('../../../assets/img/isRead.png')} width={6} height={6} style={{marginTop: 2}}/>
+                    }
+                </View>
+
+                <View style={{ flexDirection: "row" }}>
+                    <Text style={{ fontSize: 12, color: "#828282" }}>{item.day}</Text>
+                    <Text style={{ marginLeft: 10, fontSize: 12, color: "#828282" }}>{item.time}</Text>
+                </View>
+
             </View>
-            <Text style={{fontSize: 13, color: "#acacac"}}>{item.detail}</Text>
-            <View style={{flexDirection: "row"}}>
-                <Text>{item.day}</Text>
-                <Text style={{marginLeft: 10}}>{item.time}</Text>
-            </View>
-        </View>
+            <View style={{ height: 0.5, backgroundColor: "#e0e0e0" }}></View>
+        </TouchableOpacity>
     )
 }
 
 const Message = () => {
+    const navigation = useNavigation()
+    const [mess, setMess] = useState(messages)
     return (
-        <View style={globalStyles.smallContainer}>
-            <Text style={{fontSize: 22, fontWeight: 'bold', marginBottom: 20}}>Messages</Text>
+        <View style={[globalStyles.smallContainer, { paddingHorizontal: 0, paddingBottom: 60 }]}>
+            <Title title="Message" />
             <FlatList
-                data={messages}
-                keyExtractor={item => item.id}
-                renderItem={renderItem}
+                style={{ paddingHorizontal: 20 }}
+                data={mess}
+                keyExtractor={item => item.id ? item.id.toString() : Math.random().toString()}
+                renderItem={({item}) => renderItem({item}, navigation, mess, setMess)}
             />
         </View>
     )

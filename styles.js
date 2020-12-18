@@ -11,6 +11,7 @@ const globalStyles = StyleSheet.create({
     },
     smallContainer: {
         width: "100%",
+        minHeight: "100%",
         paddingHorizontal: 20,
         paddingBottom: 20,
         backgroundColor: "white"
@@ -37,6 +38,15 @@ const globalStyles = StyleSheet.create({
         fontSize: 36,
         fontWeight: "bold",
         marginBottom: 60
+    },
+    textYellow: {
+        color: "#F2C94C"
+    },
+    btnYellow: {
+        backgroundColor: "#F2C94C"
+    },
+    btnGray: {
+        backgroundColor: "#D1D1D1"
     }
 })
 

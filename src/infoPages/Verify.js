@@ -5,6 +5,7 @@ import { border, handlePhoneNumber } from './Info';
 import userInfo from '../useInfo';
 import CustomButton from '../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import Title from '../components/Title';
 
 const boxContent = [
     {
@@ -31,7 +32,7 @@ const verifyHeader = (showPhone, setShowPhone, navigation) => {
     return (
         <View style={{ paddingHorizontal: 20, paddingBottom: 20 }}>
 
-            <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Information basic</Text>
+            <Title title="Information basic" style={{paddingHorizontal: 0}} />
 
             <TouchableOpacity style={styles.protect} onPress={()=> navigation.navigate("Policy")}>
                 <Image width={10} height={10} source={require('../../assets/img/icon/security.png')} />
