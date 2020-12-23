@@ -22,7 +22,7 @@ const ForgotPass = () => {
                 <TouchableOpacity
                 style={globalStyles.button}
                 onPress={()=>navigation.navigate
-                    ("Verify number", {phone: text})
+                    ("VerifyNumber", {phone: text})
                 }
                 >
                     <Text style={{textAlign: "center", fontWeight: "bold"}}>Next</Text>

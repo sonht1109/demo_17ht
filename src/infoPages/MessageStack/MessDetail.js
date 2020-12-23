@@ -26,7 +26,7 @@ const MessDetail = () => {
                 {item.detail}
             </Text>
 
-            <CustomButton active={true} text="OK" onHanlePress={()=>{
+            <CustomButton active={true} text="OK" onHandlePress={()=>{
                 navi.goBack()
             }}/>
 

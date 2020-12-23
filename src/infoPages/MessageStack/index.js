@@ -13,7 +13,7 @@ const renderItem = ({ item }, navigation, mess, setMess) => {
             let temp = mess;
             temp[item.id - 1].isRead = true;
             setMess([...temp])
-            navigation.navigate("Mess Detail", {item})
+            navigation.navigate("MessDetail", {item})
         }}
         >
             <View style={{ paddingVertical: 15 }}>

@@ -25,6 +25,8 @@ const globalStyles = StyleSheet.create({
     modal: {
         backgroundColor: "rgba(0, 0, 0, 0.6)",
         flex: 1,
+        width: "100%",
+        height: "100%",
         justifyContent: "center",
         alignItems: "center"
     },
@@ -32,7 +34,6 @@ const globalStyles = StyleSheet.create({
         width: "100%",
         backgroundColor:"#d1d1d1",
         paddingVertical: 15,
-        marginTop: 30
     },
     title: {
         fontSize: 36,

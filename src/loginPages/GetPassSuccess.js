@@ -20,7 +20,7 @@ const GetPassSuccess = () => {
                 </Text>
                 <Text style={{textAlign: "center", color: "#acacac"}}>You have successfully reset your password. Please use your new password when logging in.</Text>
                 <CustomButton
-                onHanlePress={()=>navigation.navigate("Signup")}
+                onHandlePress={()=>navigation.navigate("Signup")}
                 active={true}
                 text="Login" />
             </View>

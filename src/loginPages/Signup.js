@@ -55,7 +55,6 @@ const Signup = ({ navigation }) => {
 						transparent={true}
 						visible={showModal}
 						style={globalStyles.modal}
-					// onRequestClose={() => setShowModal(false)}
 					>
 						<View style={globalStyles.modal}>
 							<Text style={[styles.modalPicker, { padding: 20, textAlign: "center" }]}>Language</Text>
@@ -137,7 +136,7 @@ const Signup = ({ navigation }) => {
 							isLogin &&
 							<Text
 								style={{ marginLeft: "auto", color: "#f2c94c" }}
-								onPress={() => navigation.navigate("Forgot password")}>
+								onPress={() => navigation.navigate("ForgotPass")}>
 								Forgot password ?
 							</Text>
 						}

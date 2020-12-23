@@ -1,5 +1,5 @@
 import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import Signup from './Signup';
 import ForgotPass from './ForgotPass';
 import VerifyNumber from './VerifyNumber';
@@ -8,6 +8,9 @@ import GetPassSuccess from './GetPassSuccess';
 
 const SignupStack = createStackNavigator();
 
+const stack = {Signup, ForgotPass, VerifyNumber, NewPass, GetPassSuccess}
+const hideHeaderStack = ["Signup", "GetPassSuccess"]
+
 const SignupTab = ()=>{
     return(
         <SignupStack.Navigator
@@ -15,44 +18,21 @@ const SignupTab = ()=>{
             headerStyle: {
                 elevation: 0
             },
+            ...TransitionPresets.SlideFromRightIOS
         }}>
-            <SignupStack.Screen
-            name="Signup"
-            component={Signup}
-            options={{headerShown: false}}
-            />
-
-            <SignupStack.Screen
-            name="Forgot password"
-            component={ForgotPass}
-            options={{
-                title: "",
-            }}
-            />
-
-            <SignupStack.Screen 
-            name="Verify number"
-            component={VerifyNumber}
-            options={{
-                title: ""
-            }}
-            />
-
-            <SignupStack.Screen 
-            name="New pass"
-            component={NewPass}
-            options={{
-                title: ""
-            }}
-            />
-
-            <SignupStack.Screen
-            name="Success"
-            component={GetPassSuccess}
-            options={{
-                headerShown: false
-            }}
-            />
+            {Object.entries(stack).map(([name, component], index)=> {
+                return(
+                    <SignupStack.Screen
+                    key={index}
+                    name={name}
+                    component={component}
+                    options={{
+                        title: "",
+                        headerShown: !hideHeaderStack.includes(name)
+                    }}
+                    />
+                )
+            })}
         </SignupStack.Navigator>
     )
 }

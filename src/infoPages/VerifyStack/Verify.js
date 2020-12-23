@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet, Alert } from 'react-native'
 import { ScrollView, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { border, handlePhoneNumber } from './Info';
-import userInfo from '../useInfo';
-import CustomButton from '../components/CustomButton';
+import { border, handlePhoneNumber } from '../Info';
+import userInfo from '../../useInfo';
+import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
-import Title from '../components/Title';
+import Title from '../../components/Title';
 
 const boxContent = [
     {
@@ -15,7 +15,8 @@ const boxContent = [
         detail: [
             "Increase your withdrawal limit",
             "Increase the deposit limit for some fiat channels"
-        ]
+        ],
+        component: "IDConfirm"
     },
     {
         title: "Additional Information",
@@ -24,7 +25,8 @@ const boxContent = [
         detail: [
             "Increase your withdrawal limit",
             "Increase the deposit limit for some fiat channels"
-        ]
+        ],
+        component: "IDConfirm"
     }
 ]
 
@@ -35,15 +37,15 @@ const verifyHeader = (showPhone, setShowPhone, navigation) => {
             <Title title="Information basic" style={{paddingHorizontal: 0}} />
 
             <TouchableOpacity style={styles.protect} onPress={()=> navigation.navigate("Policy")}>
-                <Image width={10} height={10} source={require('../../assets/img/icon/security.png')} />
+                <Image width={10} height={10} source={require('../../../assets/img/icon/security.png')} />
                 <Text style={{ fontSize: 12, color: "#828282", marginHorizontal: 10 }}> Personal information protection </Text>
-                <Image source={require('../../assets/img/icon/right_arrow.png')} />
+                <Image source={require('../../../assets/img/icon/right_arrow.png')} />
             </TouchableOpacity>
 
             <View style={{ flexDirection: "row" }}>
 
                 <View style={{ alignItems: "center", flexDirection: "row", flexGrow: 1 }}>
-                    <Image source={require('../../assets/img/avt.png')} />
+                    <Image source={require('../../../assets/img/avt.png')} />
                     <View style={{ marginLeft: 20 }}>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
                             <Text style={{ marginRight: 15 }}>
@@ -51,7 +53,7 @@ const verifyHeader = (showPhone, setShowPhone, navigation) => {
                             </Text>
                             <TouchableWithoutFeedback
                                 onPress={() => setShowPhone(!showPhone)}>
-                                <Image source={require('../../assets/img/eye_off.png')} />
+                                <Image source={require('../../../assets/img/eye_off.png')} />
                             </TouchableWithoutFeedback>
                         </View>
                         <Text style={{ color: "#828282" }}>ID: {userInfo.ID}</Text>
@@ -62,14 +64,15 @@ const verifyHeader = (showPhone, setShowPhone, navigation) => {
     )
 }
 
-const verifyBox = (title, subtitle, question, detail, i) => {
+const verifyBox = (c, i, navigation) => {
+    const {title, subtitle, question, detail, component} = c
     return (
         <View style={styles.box} key={i}>
             <Text style={{fontWeight: '700'}}>{title}</Text>
             <View style={{ height: 1, backgroundColor: "#bdbdbd", marginVertical: 10 }}/>
             <View>
                 <View style={{ flexDirection: "row", marginBottom: 15 }}>
-                    <Image source={require('../../assets/img/protect_info.png')}/>
+                    <Image source={require('../../../assets/img/protect_info.png')}/>
                     <Text style={{fontWeight: "500", marginLeft: 10}}>{subtitle}</Text>
                 </View>
 
@@ -81,7 +84,13 @@ const verifyBox = (title, subtitle, question, detail, i) => {
                     return <Text key={index} style={{ fontSize: 12, color: "#acacac" }}>- {d}</Text>
                 })}
 
-                <CustomButton active={true} text="Verify" />
+                <CustomButton
+                active={true}
+                text="Verify"
+                onHandlePress={()=>{
+                    navigation.navigate("IDConfirm")
+                }}
+                />
 
             </View>
         </View>
@@ -95,9 +104,9 @@ const Verify = () => {
         <ScrollView style={styles.container}>
             {verifyHeader(showPhone, setShowPhone, navigation)}
             {border()}
-            <View style={{padding: 20}}>
+            <View style={{paddingHorizontal: 20, paddingVertical: 10}}>
                 {boxContent.map((c, i)=>{
-                    return verifyBox(c.title, c.subtitle, c.question, c.detail, i)
+                    return verifyBox(c, i, navigation)
                 })}
             </View>
         </ScrollView>
@@ -121,6 +130,7 @@ const styles = StyleSheet.create({
     },
     box: {
         padding: 20,
+        marginVertical: 10, 
         backgroundColor: "#f8f8f8"
     }
 })
