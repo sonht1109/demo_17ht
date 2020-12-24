@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 import globalStyles from '../../styles';
 import { useNavigation } from '@react-navigation/native';
+import CustomButton from '../components/CustomButton';
 const ForgotPass = () => {
 
     const [text, setText] = useState('')
@@ -18,16 +19,13 @@ const ForgotPass = () => {
                     style={globalStyles.input}
                     keyboardType="numeric"
                 />
-                <View>
-                <TouchableOpacity
-                style={globalStyles.button}
-                onPress={()=>navigation.navigate
+                <CustomButton
+                text='Next'
+                active={text!==""}
+                onHandlePress={
+                    ()=>navigation.navigate
                     ("VerifyNumber", {phone: text})
-                }
-                >
-                    <Text style={{textAlign: "center", fontWeight: "bold"}}>Next</Text>
-                </TouchableOpacity>
-                </View>
+                } />
             </View>
         </View>
     )

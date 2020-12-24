@@ -22,6 +22,10 @@ const VerifyNumber = () => {
   const ref5 = useRef(null)
   const ref6 = useRef(null)
 
+  const checkCode = ()=>{
+    const {code1, code2, code3, code4, code5, code6} = code;
+    return code1 !== "" && code2 !== "" && code3 !== "" && code4 !== "" && code5 !== "" && code6 !== ""
+  }
 
   const verifyInput = () => {
     return (
@@ -29,7 +33,7 @@ const VerifyNumber = () => {
         <TextInput
         ref={ref1}
         autoFocus={true}
-        style={[styles.verifyItem]}
+        style={[styles.verifyItem, code.code1 !== '' && styles.verifyItemActive]}
         maxLength={1}
         
         keyboardType="numeric"
@@ -42,7 +46,7 @@ const VerifyNumber = () => {
         }}
         />
         <TextInput
-        style={[styles.verifyItem]}
+        style={[styles.verifyItem, code.code2 !== '' && styles.verifyItemActive]}
         ref={ref2}
         maxLength={1}
         keyboardType="numeric"
@@ -58,7 +62,7 @@ const VerifyNumber = () => {
         }}
         />
         <TextInput
-        style={[styles.verifyItem]}
+        style={[styles.verifyItem, code.code3 !== '' && styles.verifyItemActive]}
         ref={ref3}
         maxLength={1}
         keyboardType="numeric"
@@ -74,7 +78,7 @@ const VerifyNumber = () => {
         }}
         />
         <TextInput
-        style={[styles.verifyItem]}
+        style={[styles.verifyItem, code.code4 !== '' && styles.verifyItemActive]}
         ref={ref4}
         maxLength={1}
         keyboardType="numeric"
@@ -90,7 +94,7 @@ const VerifyNumber = () => {
         }}
         />
         <TextInput
-        style={[styles.verifyItem]}
+        style={[styles.verifyItem, code.code5 !== '' && styles.verifyItemActive]}
         maxLength={1}
         ref={ref5}
         keyboardType="numeric"
@@ -106,7 +110,7 @@ const VerifyNumber = () => {
         }}
         />
         <TextInput
-        style={[styles.verifyItem]}
+        style={[styles.verifyItem, code.code6 !== '' && styles.verifyItemActive]}
         maxLength={1}
         ref={ref6}
         keyboardType="numeric"
@@ -132,14 +136,16 @@ const VerifyNumber = () => {
         <Text style={{ fontSize: 14, color: "#acacac" }}>We will send you a code to verify your phone number</Text>
         <Text>Send to <Text style={{ color: "#FAD939" }}>{route.params.phone}</Text></Text>
         {verifyInput()}
+
         <View style={{ flexDirection: "row", width: "100%", justifyContent: "center", alignItems: "center" }}>
           <Text style={{ flex: 0.5, textAlign: "center", color: "#FAD939", fontWeight: "bold" }}>
             Resend OTP
-                    </Text>
-          <TouchableOpacity style={styles.button}>
+          </Text>
+          <TouchableOpacity style={[styles.button, checkCode() && styles.activeBtn]} disabled={!checkCode()}>
             <Text style={{ textAlign: "center", fontWeight: "bold" }} onPress={()=>navigation.navigate("NewPass")}>Next</Text>
           </TouchableOpacity>
         </View>
+
         <Text
           style={{ color: "#acacac", fontSize: 14, marginTop: 60, fontWeight: '500' }}
           onPress={() => navigation.navigate("Signup")}>
@@ -167,6 +173,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#d1d1d1",
     paddingVertical: 15,
     flex: 0.5
+  },
+  activeBtn: {
+    backgroundColor: "#FAD939"
   }
 })
 

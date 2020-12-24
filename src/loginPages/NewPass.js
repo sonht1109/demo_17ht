@@ -2,12 +2,17 @@ import React, { useState } from 'react'
 import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import globalStyles from '../../styles';
 import { useNavigation } from '@react-navigation/native';
+import CustomButton from '../components/CustomButton';
 
 const NewPass = () => {
 
     const [pass, setPass] = useState('');
     const [confirm, setConfirm] = useState('');
     const navigation = useNavigation();
+    
+    const checkPass = ()=>{
+        return pass.length > 7 && pass === confirm
+    }
 
     return (
         <View style={globalStyles.container}>
@@ -38,10 +43,7 @@ const NewPass = () => {
                     <Text style={styles.mess}>Password does not match</Text>
                 }
 
-                <TouchableOpacity style={globalStyles.button} onPress={()=>navigation.navigate("GetPassSuccess")}>
-                    <Text style={{ textAlign: "center", fontWeight: "bold" }}>Confirm</Text>
-                </TouchableOpacity>
-
+                <CustomButton active={checkPass()} text="Confirm" onHandlePress={()=>navigation.navigate("GetPassSuccess")} />
                 <Text
                     style={{ color: "#acacac", fontSize: 14, marginTop: 60, fontWeight: '500' }}
                     onPress={() => navigation.navigate("Signup")}>

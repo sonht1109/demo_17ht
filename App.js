@@ -6,8 +6,8 @@ import InfoTab from './src/infoPages/InfoTab';
 const App = () => {
   return (
       <NavigationContainer>
-        {/* <SignupTab/> */}
-        <InfoTab />
+        <SignupTab/>
+        {/* <InfoTab /> */}
       </NavigationContainer>
   )
 }

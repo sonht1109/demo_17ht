@@ -8,13 +8,16 @@ import MessDetail from './MessageStack/MessDetail';
 import Settings from './SettingStack/index';
 import Language from './SettingStack/Language';
 import IDConfirm from './VerifyStack/IDConfirm';
+import Camera from './VerifyStack/Camera';
 
 const InfoStack = createStackNavigator()
 
 const InfoScreen = { Info }
-const VerifyScreen = { Verify, Policy, IDConfirm }
+const VerifyScreen = { Verify, Policy, IDConfirm, Camera }
 const MessScreen = { Message, MessDetail }
 const SettingScreen = { Settings, Language }
+
+const transparentHeaderComponents = ["Camera"]
 
 const InfoTab = ()=>{
     return(
@@ -36,7 +39,11 @@ const InfoTab = ()=>{
                     key={index}
                     name={name}
                     component={component}
-                    options={{title: ""}} />
+                    options={{
+                        title: "",
+                        headerTransparent: transparentHeaderComponents.includes(name),
+                        headerTintColor: transparentHeaderComponents.includes(name) ? "white" : "#bdbdbd"
+                    }} />
                 )
             })}
             

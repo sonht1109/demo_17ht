@@ -33,8 +33,10 @@ const header = (showPhone, setShowPhone, navigation) => {
                 {handlePhoneNumber(userInfo.phone, showPhone)}
               </Text>
               <TouchableWithoutFeedback
-                onPress={() => setShowPhone(!showPhone)}>
-                <Image source={require('../../assets/img/eye_off.png')} />
+                style={{width: 20, height: 20, justifyContent: "center", alignItems: "center"}}
+                onPress={() => setShowPhone(!showPhone)}
+                >
+                <Image width={20} height={20} source={require('../../assets/img/eye_off.png')} />
               </TouchableWithoutFeedback>
             </View>
             <Text style={{ color: "#828282" }}>ID: {userInfo.ID}</Text>

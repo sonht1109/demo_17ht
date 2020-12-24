@@ -7,6 +7,7 @@ const CustomButton = ({text, onHandlePress, active, style})=>{
     return(
         <View style={{marginTop: 30 }}>
             <TouchableOpacity
+            disabled={!active}
             style={[globalStyles.button, {backgroundColor: active ? "#FAD939" : "#d1d1d1"}, style]}
             onPress={onHandlePress}>
                 <Text

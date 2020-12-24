@@ -52,7 +52,9 @@ const verifyHeader = (showPhone, setShowPhone, navigation) => {
                                 {handlePhoneNumber(userInfo.phone, showPhone)}
                             </Text>
                             <TouchableWithoutFeedback
-                                onPress={() => setShowPhone(!showPhone)}>
+                                onPress={() => setShowPhone(!showPhone)}
+                                style={{width: 20, height: 20, justifyContent: "center", alignItems: "center"}}
+                                >
                                 <Image source={require('../../../assets/img/eye_off.png')} />
                             </TouchableWithoutFeedback>
                         </View>

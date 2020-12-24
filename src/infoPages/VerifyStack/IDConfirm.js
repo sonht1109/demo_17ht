@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Alert, Image, StyleSheet, Text, View } from 'react-native'
 import Title from '../../components/Title'
 import globalStyles from '../../../styles';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import CustomButton from '../../components/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
 const cards = [
     {
@@ -34,10 +35,12 @@ const colors = {
 const customCheck = () => {
     return (
         <>
-            <View style={styles.customCheck}>
-            </View>
             <Image
+            source={require('../../../assets/img/triangle.png')}
             style={{position: "absolute", top: 0, right: 0}}
+            />
+            <Image
+            style={{position: "absolute", top: 4, right: 3}}
                 source={require('../../../assets/img/check.png')}>
             </Image>
         </>
@@ -47,7 +50,7 @@ const customCheck = () => {
 const mapBox = (chosenCard, setChosenCard) => {
     return cards.map(item => {
         return (
-            <View key={item.key}>
+            <View key={item.key} style={{marginTop: 18}}>
                 <TouchableWithoutFeedback
                     style={[styles.cardBox,
                     chosenCard === item.key ? styles.activeBorder : styles.nonActiveBorder]}
@@ -67,8 +70,9 @@ const mapBox = (chosenCard, setChosenCard) => {
 
 const IDConfirm = () => {
     const [chosenCard, setChosenCard] = useState("")
+    const navi = useNavigation()
     return (
-        <View style={globalStyles.smallContainer}>
+        <ScrollView style={globalStyles.smallContainer}>
             <Title
                 title="Select your user type to login"
                 style={{ paddingHorizontal: 0, marginBottom: 40 }} />
@@ -76,8 +80,14 @@ const IDConfirm = () => {
             <View>
                 {mapBox(chosenCard, setChosenCard)}
             </View>
-            <CustomButton text="Next" active={chosenCard !== ""} />
-        </View>
+            <CustomButton text="Next" active={chosenCard !== ""} onHandlePress={
+                ()=>{
+                    if(chosenCard !== ""){
+                        navi.navigate("Camera")
+                    }
+                }
+            } />
+        </ScrollView>
     )
 }
 
@@ -86,12 +96,11 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         padding: 20,
-        borderWidth: 1,
-        marginTop: 18
+        borderWidth: 1
     },
     activeText: {
         color: "black",
-        fontWeight: "500",
+        fontWeight: "700",
     },
     nonActiveText: {
         color: "#828282"
