@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import list from './list'
 import CustomButton from '../../components/CustomButton';
@@ -44,21 +44,23 @@ const renderItem = ({ item }, chosenList, setChosenList) => {
   )
 }
 
-const renderChosenList = (chosenList)=>{
+const renderChosenList = (chosenList = [])=>{
   return chosenList.map((item, index)=>{
     return(
       <View key={index}>
 
         <View style={{flexDirection: "row", paddingVertical: 12}}>
           <Text style={{flex: 0.25}}>
-            <Text style={{fontWeight: "bold"}}>{item.currency}</Text>
-            <Text style={{color: "#828282"}}> / {item.city}</Text>
+            <Text style={{fontWeight: "bold"}}>{item?.currency}</Text>
+            <Text style={{color: "#828282"}}> / {item?.city}</Text>
           </Text>
           <View style={{flex: 0.25}}>
-            <Text style={{color: "#219653", fontWeight: "bold"}}>{item.buyIn}</Text>
-            <Text style={{color: "#828282", fontSize: 11}}>{item.rate}</Text>
+            <Text style={{color: "#219653", fontWeight: "bold"}}>{item?.buyIn}</Text>
+            <Text style={{color: "#828282", fontSize: 11}}>{item?.rate}</Text>
           </View>
-          <Text style={{flex: 0.25, color: "#D04749", fontWeight: "bold"}}>{item.sellOut}</Text>
+          <Text style={{flex: 0.25, color: "#D04749", fontWeight: "bold"}}>
+            {item?.sellOut}
+          </Text>
           <TouchableOpacity style={{flex: 0.25}}>
             <Text style={{textAlign: "center", backgroundColor: "#FAD939", paddingVertical: 5}}>
               Order
@@ -76,19 +78,21 @@ const renderChosenList = (chosenList)=>{
 }
 
 //main
-const FollowList = ({key}) => {
+const FollowList = ({keyword}) => {
   const [chosenList, setChosenList] = useState([])
   const [showChooseList, setShowChooseList] = useState(false)
   const navi = useNavigation()
-  // const searchList = list.filter(item => item.currency.toLowerCase().includes(props.key))
-  console.log(key);
+
+  const searchList = showChooseList && 
+  list.filter(item => item.currency.toLowerCase().includes(keyword.toLowerCase()))
+
 
   return (
     <View >
       {
         showChooseList &&
           <FlatList
-            data={list}
+            data={searchList}
             renderItem={({ item }) => renderItem({ item }, chosenList, setChosenList)}
             keyExtractor={item => item.id}
             numColumns={2}
@@ -102,7 +106,7 @@ const FollowList = ({key}) => {
       }
       {
         !showChooseList &&
-        <View style={{ paddingHorizontal: 20 }}>
+        <ScrollView style={{ paddingHorizontal: 20 }}>
           <View style={{ flexDirection: "row", marginVertical: 8, alignItems: "center" }}>
             <Text style={styles.columnTitle}>Type</Text>
             <Text style={styles.columnTitle}>Buy in</Text>
@@ -117,7 +121,7 @@ const FollowList = ({key}) => {
               <Text style={{color: "#FAD939"}}>Add Follow List</Text>
             </View>
           </TouchableOpacity>
-        </View>
+        </ScrollView>
       }
     </View>
   )

@@ -5,7 +5,7 @@ import InfoTab from './src/infoPages/InfoTab';
 import { createContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons'
-import Market from './src/marketTab/Market';
+import MarketTab from './src/marketTab/index';
 
 export const AuthContext = createContext()
 
@@ -51,7 +51,7 @@ const App = () => {
 
           <Tab.Screen
           name="Market"
-          component={Market}
+          component={MarketTab}
           />
           
         </Tab.Navigator>

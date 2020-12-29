@@ -23,7 +23,7 @@ const menu = [
 //main
 const Market = () => {
     const [tab, setTab] = useState(1)
-    const [key, setKey] = useState('')
+    const [keyword, setKey] = useState('')
 
     const renderSearchBar = useCallback(() => {
         return (
@@ -33,11 +33,11 @@ const Market = () => {
                     placeholder="Search currency ..."
                     style={styles.input}
                     onChangeText={(text) => setKey(text)}
-                    value={key}
+                    value={keyword}
                 />
             </View>
         )
-    }, [key])
+    }, [keyword])
 
     const renderMenu = useCallback(() => {
         return (
@@ -68,7 +68,7 @@ const Market = () => {
             {
                 tab === 1 &&
                 <View style={{ marginBottom: 220 }}>
-                    <FollowList key={key} />
+                    <FollowList keyword={keyword} />
                 </View>
             }
         </View>
