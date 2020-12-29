@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Dimensions, Image, Modal, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
+import { Image, Modal, StyleSheet, Text, View } from 'react-native'
 import globalStyles from '../../styles';
 
 const color = {
@@ -7,22 +7,20 @@ const color = {
     fail: "#EB5757"
 }
 
-const windowWidth = Dimensions.get('window').width
-const windowHeight = Dimensions.get('window').height
-
 const CustomDialog = ({customAlert}) => {
     const {success, visible, title, subtitle} = customAlert
-    console.log(customAlert);
     const [show, setShow] = useState(visible)
+    useLayoutEffect (()=> {
+        setShow(visible)
+    }, [customAlert])
     
     return(
         <Modal
-        style={[globalStyles.modal, {width: windowWidth, height: windowHeight, backgroundColor: "black"}]}
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={show}
         >
-            <View style={{width: "80%"}}>
+            <View style={globalStyles.modal}>
                 <View style={styles.modalContainer}>
                     <Image
                     source={
@@ -31,15 +29,16 @@ const CustomDialog = ({customAlert}) => {
 
                     <Text
                     style={{fontSize: 16,
-                    color: success ? color.success : color.fail}}>
+                    color: success ? color.success : color.fail,
+                    marginBottom: 15, marginTop: 5}}>
                         {title}
                     </Text>
 
-                    <Text style={{textAlign: "center"}}>
+                    <Text style={{textAlign: "center", color: "#828282", fontSize: 13, marginBottom: 20, lineHeight: 20}}>
                         {subtitle}
                     </Text>
                 </View>
-                <View style={{flexDirection: "row", width: "100%"}}>
+                <View style={{flexDirection: "row", width: "80%"}}>
 
                         <Text
                         onPress={()=>setShow(false)}
@@ -69,13 +68,16 @@ const styles = StyleSheet.create({
         textAlign: "center",
         borderTopWidth: 1,
         borderRightWidth: 1,
-        paddingVertical: 10
+        paddingVertical: 10,
+        backgroundColor: "white",
+        lineHeight: 20
     },
     modalContainer: {
         backgroundColor: "white",
         justifyContent: "center",
         alignItems: "center",
-        padding: 20
+        padding: 20,
+        width: "80%"
     }
 })
 

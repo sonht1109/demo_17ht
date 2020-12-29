@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
 	Alert,
 	Keyboard, Modal, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View
@@ -7,6 +7,10 @@ import {
 import { Picker } from '@react-native-community/picker';
 import globalStyles from '../../styles';
 import locales from '../locales';
+import CustomButton from '../components/CustomButton';
+import { AuthContext } from '../../App';
+import userInfo from '../useInfo';
+import CustomDialog from '../components/CustomDialog';
 
 const mapLocale = (locale, setLocale, setShowModal) => {
 	return locales.map((item, index) => {
@@ -21,6 +25,24 @@ const mapLocale = (locale, setLocale, setShowModal) => {
 	})
 }
 
+const checkBtn = (isLogin, text, pass, code)=>{
+	if(text !== ""){
+		if(pass.length > 7){
+			if(isLogin ){
+				if( code === ""){
+					return true;
+				}
+			}
+			else{
+				if(code !== ""){
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
 const Signup = ({ navigation }) => {
 	const [selectedItem, setSelectedItem] = useState('+84');
 	const [locale, setLocale] = useState('en');
@@ -29,6 +51,14 @@ const Signup = ({ navigation }) => {
 	const [showModal, setShowModal] = useState(false);
 	const [isLogin, setIsLogin] = useState(false);
 	const [code, setCode] = useState('');
+	const [customAlert, setCustomAlert] = useState({
+		visible: false,
+		success: false,
+		title: "",
+		subtitle: ""
+	});
+
+	const authContext = useContext(AuthContext)
 
 	const checkSubmit = () => {
 		// if (text !== '') {
@@ -45,6 +75,20 @@ const Signup = ({ navigation }) => {
 		return false;
 	}
 
+	const checkLogin = ()=>{
+		if(pass === userInfo.password && text === userInfo.phone){
+			authContext.setAuth(true)
+		}
+		else{
+			setCustomAlert({
+				...customAlert,
+				visible: true,
+				title: "User is invalid !",
+				subtitle: "Please try again !"
+			})
+		}
+	}
+
 	return (
 		<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 			<View style={globalStyles.container}>
@@ -54,7 +98,6 @@ const Signup = ({ navigation }) => {
 						animationType="fade"
 						transparent={true}
 						visible={showModal}
-						style={globalStyles.modal}
 					>
 						<View style={globalStyles.modal}>
 							<Text style={[styles.modalPicker, { padding: 20, textAlign: "center" }]}>Language</Text>
@@ -142,21 +185,13 @@ const Signup = ({ navigation }) => {
 						}
 					</View>
 
-					<View style={{ width: '100%', marginTop: 30 }}>
-						<TouchableOpacity
-							style={globalStyles.button}
-							onPress={() => {
-								var mess = 'Wrong info !';
-								if (checkSubmit()) {
-									mess = `You have ${isLogin ? "log in" : "signed up"} with phone: ${text}`
-								}
-								Alert.alert(mess);
-							}}>
-							<Text style={{ fontWeight: "bold", textAlign: "center" }}>
-								{isLogin ? "Log in" : "Sign up"}
-							</Text>
-						</TouchableOpacity>
-					</View>
+					<CustomButton
+					text={isLogin ? "Log in" : "Sign up"}
+					active={checkBtn(isLogin, text, pass, code)}
+					onHandlePress={checkLogin}
+					/>
+
+					<CustomDialog customAlert={customAlert} />
 
 				</View>
 			</View>

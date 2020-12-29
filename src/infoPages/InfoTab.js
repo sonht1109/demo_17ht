@@ -9,6 +9,7 @@ import Settings from './SettingStack/index';
 import Language from './SettingStack/Language';
 import IDConfirm from './VerifyStack/IDConfirm';
 import Camera from './VerifyStack/Camera';
+import { Text } from 'react-native';
 
 const InfoStack = createStackNavigator()
 
@@ -46,7 +47,6 @@ const InfoTab = ()=>{
                     }} />
                 )
             })}
-            
         </InfoStack.Navigator>
     )
 }

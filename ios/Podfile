@@ -12,6 +12,8 @@ target 'demo_17ht' do
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'demo_17htTests' do
     inherit! :complete
     # Pods for testing

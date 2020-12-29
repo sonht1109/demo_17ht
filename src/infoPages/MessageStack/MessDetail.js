@@ -3,13 +3,14 @@ import { Text, View } from 'react-native'
 import globalStyles from '../../../styles';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import CustomButton from '../../components/CustomButton';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const MessDetail = () => {
     const route = useRoute()
     const { item } = route.params
     const navi = useNavigation()
     return (
-        <View style={globalStyles.smallContainer}>
+        <ScrollView style={globalStyles.smallContainer}>
 
             <Text style={{ fontWeight: "700" }}>
                 {item.title}
@@ -30,7 +31,7 @@ const MessDetail = () => {
                 navi.goBack()
             }}/>
 
-        </View>
+        </ScrollView>
     )
 }
 

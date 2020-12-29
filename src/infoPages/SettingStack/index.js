@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Image, Text, View } from 'react-native'
 import settingList from './settingList';
 import Title from '../../components/Title';
 import globalStyles from '../../../styles';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import CustomDialog from '../../components/CustomDialog';
 
-const mapSettingList = (navi)=>{
-    return(
+const mapSettingList = (navi) => {
+    return (
         settingList.map((item, index) => {
             return (
-                <TouchableOpacity key={index} onPress={()=> navi.navigate(item.name)}>
+                <TouchableOpacity key={index} onPress={() => navi.navigate(item.name)}>
                     <View
                         style={{ flexDirection: "row", alignItems: "center", paddingVertical: 20 }}>
                         <Text style={{ flexGrow: 1 }}>{item.name}</Text>
@@ -19,7 +20,7 @@ const mapSettingList = (navi)=>{
                     </View>
                     {
                         index !== settingList.length - 1 &&
-                        <View style={{height: 0.5, backgroundColor: "#e0e0e0"}}></View>
+                        <View style={{ height: 0.5, backgroundColor: "#e0e0e0" }}></View>
                     }
                 </TouchableOpacity>
             )
@@ -29,13 +30,14 @@ const mapSettingList = (navi)=>{
 
 const Settings = () => {
     const navi = useNavigation()
+
     return (
         <View style={[globalStyles.smallContainer, { paddingHorizontal: 0 }]}>
-            <Title title="Settings" style={{marginBottom: 15}} />
+            <Title title="Settings" style={{ marginBottom: 15 }} />
             <ScrollView style={{ paddingHorizontal: 20 }}>
                 {mapSettingList(navi)}
             </ScrollView>
-        </View>
+         </View>
     )
 }
 

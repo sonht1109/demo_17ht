@@ -1,12 +1,12 @@
-import React from 'react'
-import { Alert, Image, StyleSheet, Text, View } from 'react-native'
+import React, { useContext } from 'react'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import { ScrollView, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import userInfo from '../useInfo';
 import { features } from './features'
 import CustomButton from '../components/CustomButton';
 import { useState } from 'react/cjs/react.development';
 import { useNavigation } from '@react-navigation/native';
-import CustomDialog from '../components/CustomDialog';
+import { AuthContext } from '../../App';
 
 export const handlePhoneNumber = (phone, showPhone) => {
   let str = ''
@@ -90,9 +90,12 @@ export const border = () => {
   )
 }
 
+// main
 const Info = () => {
   const [showPhone, setShowPhone] = useState(false)
   const navigation = useNavigation()
+  const authContext = useContext(AuthContext)
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={{ width: "100%" }}>
@@ -101,7 +104,9 @@ const Info = () => {
         {mapFeatures(navigation)}
         {border()}
         <View style={{ padding: 20 }}>
-          <CustomButton active={true} text="Log out" />
+          <CustomButton active={true} text="Log out" onHandlePress={
+            ()=>authContext.setAuth(false)
+          } />
           <Text
           style={{ marginTop: 12, fontSize: 12, lineHeight: 20, color: "#828282" }}>
             Please do not disclose your SMS verification code to anyone, including Zerotech's customer support

@@ -1,6 +1,7 @@
 const userInfo = {
-    phone: "0329271723",
+    phone: "+84329271723",
     ID: "17235265",
+    password: "Htson2000"
 }
 
 export default userInfo

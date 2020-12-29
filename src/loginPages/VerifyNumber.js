@@ -23,8 +23,12 @@ const VerifyNumber = () => {
   const ref6 = useRef(null)
 
   const checkCode = ()=>{
-    const {code1, code2, code3, code4, code5, code6} = code;
-    return code1 !== "" && code2 !== "" && code3 !== "" && code4 !== "" && code5 !== "" && code6 !== ""
+    for(let c in code){
+      if(code[c] === ""){
+        return false;
+      }
+    }
+    return true
   }
 
   const verifyInput = () => {
