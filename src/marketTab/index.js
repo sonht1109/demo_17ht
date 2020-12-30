@@ -1,21 +1,37 @@
 import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import Market from './Market';
 import EditFollowList from './followListStack/EditFollowList';
+import { Text } from 'react-native';
 
 const MarketStack = createStackNavigator()
 
 const MarketTab = ()=>{
     return(
-        <MarketStack.Navigator>
+        <MarketStack.Navigator
+        screenOptions={{
+            ...TransitionPresets.SlideFromRightIOS
+        }}
+        >
 
             <MarketStack.Screen
             name="Market"
-            component={Market} />
+            component={Market}
+            options={{
+                headerShown: false
+            }}/>
 
             <MarketStack.Screen
             name="EditFollowList"
-            component={EditFollowList} />
+            component={EditFollowList}
+            options={{
+                headerTitle: '',
+                headerStyle: {
+                    elevation: 0,
+                },
+                headerTintColor: "#bdbdbd",
+            }}
+            />
 
         </MarketStack.Navigator>
     )

@@ -1,10 +1,11 @@
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
-import list from './list'
+import list from '../list'
 import CustomButton from '../../components/CustomButton';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { useEffect } from 'react/cjs/react.development';
 
 const renderItem = ({ item }, chosenList, setChosenList) => {
   return (
@@ -82,6 +83,14 @@ const FollowList = ({keyword}) => {
   const [chosenList, setChosenList] = useState([])
   const [showChooseList, setShowChooseList] = useState(false)
   const navi = useNavigation()
+  const route = useRoute()
+  console.log('render');
+  useEffect(() => {
+    console.log('route change');
+    if(route.params){
+      setChosenList([...route.params.list])
+    }
+  }, [route])
 
   const searchList = showChooseList && 
   list.filter(item => item.currency.toLowerCase().includes(keyword.toLowerCase()))
@@ -111,13 +120,15 @@ const FollowList = ({keyword}) => {
             <Text style={styles.columnTitle}>Type</Text>
             <Text style={styles.columnTitle}>Buy in</Text>
             <Text style={styles.columnTitle}>Sell out</Text>
-            <Icon name="create-outline" size={18} color="#FAD939" style={{ flex: 0.25, textAlign: "right" }}
-            onPress={()=>navi.navigate("EditFollowList")}/>
+            <Icon name="create-outline" size={22} color="#FAD939" style={{ flex: 0.25, textAlign: "right" }}
+            onPress={()=>navi.navigate("EditFollowList", {
+              list: chosenList
+            })}/>
           </View>
           {renderChosenList(chosenList)}
           <TouchableOpacity onPress={()=>setShowChooseList(true)}>
             <View style={{flexDirection: "row", marginTop: 16, alignItems: "center", justifyContent: 'center'}}>
-              <Icon name="add-circle" size={20} style={{marginRight: 10, color: "#FAD939"}} />
+              <Icon name="add-circle" size={22} style={{marginRight: 10, color: "#FAD939"}} />
               <Text style={{color: "#FAD939"}}>Add Follow List</Text>
             </View>
           </TouchableOpacity>

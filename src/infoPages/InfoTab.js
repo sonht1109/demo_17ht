@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import Info from './Info';
 import Verify from './VerifyStack/Verify';

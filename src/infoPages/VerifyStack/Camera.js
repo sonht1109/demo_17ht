@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
-import { Dimensions, Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import { RNCamera } from 'react-native-camera'
-import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const Camera = () => {
     const camera = useRef(null)
@@ -73,10 +73,7 @@ const styles = StyleSheet.create({
     },
     preview: {
         flex: 1,
-        // justifyContent: 'flex-end',
         alignItems: 'center',
-        // width: Dimensions.get('window').width,
-        // height: Dimensions.get('window').width 
     },
     capture: {
         flex: 0,
