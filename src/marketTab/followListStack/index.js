@@ -1,34 +1,38 @@
-import React, { useState } from 'react'
+import React, { useContext, useLayoutEffect, useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import list from '../list'
 import CustomButton from '../../components/CustomButton';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { useEffect } from 'react/cjs/react.development';
+import { useNavigation } from '@react-navigation/native';
+import {UserContext} from '../../common/context'
 
 const renderItem = ({ item }, chosenList, setChosenList) => {
+  
+  let isChosen = chosenList.filter(elm => elm.id === item.id).length > 0 ? true : false
+
   return (
     <View style={styles.box}>
       <TouchableOpacity
         activeOpacity={1}
         onPress={() => {
-          if (chosenList.indexOf(item) !== -1) {
-            chosenList.splice(chosenList.indexOf(item), 1)
+          let cloneList = chosenList.slice()
+          if (cloneList.indexOf(item) !== -1) {
+            cloneList.splice(cloneList.indexOf(item), 1)
           }
           else {
-            chosenList.push(item)
+            cloneList.push(item)
           }
-          setChosenList([...chosenList])
+          setChosenList([...cloneList])
         }}>
         <View style={{ width: "100%", flexDirection: "row", alignItems: "center" }}>
-          <Text style={[{fontWeight: "bold", color: "#828282"}, chosenList.includes(item) && { color: "black" }]}>{item.currency} </Text>
+          <Text style={[{fontWeight: "bold", color: "#828282"}, isChosen && { color: "black" }]}>{item.currency} </Text>
           <Text style={{ color: "#828282", fontSize: 11 }}> / {item.city}</Text>
           <Icon
             name={"checkmark-circle"}
             size={15}
             style={{ marginLeft: "auto" }}
-            color={chosenList.includes(item) ? "#FAD939" : "#D1D1D1"}
+            color={isChosen ? "#FAD939" : "#D1D1D1"}
           />
         </View>
         <View style={{ flexDirection: "row", marginTop: 10 }}>
@@ -45,7 +49,7 @@ const renderItem = ({ item }, chosenList, setChosenList) => {
   )
 }
 
-const renderChosenList = (chosenList = [])=>{
+const renderChosenList = (chosenList)=>{
   return chosenList.map((item, index)=>{
     return(
       <View key={index}>
@@ -63,7 +67,7 @@ const renderChosenList = (chosenList = [])=>{
             {item?.sellOut}
           </Text>
           <TouchableOpacity style={{flex: 0.25}}>
-            <Text style={{textAlign: "center", backgroundColor: "#FAD939", paddingVertical: 5}}>
+            <Text style={{textAlign: "center", backgroundColor: "#FAD939", paddingVertical: 10, fontSize: 10}}>
               Order
             </Text>
           </TouchableOpacity>
@@ -80,17 +84,15 @@ const renderChosenList = (chosenList = [])=>{
 
 //main
 const FollowList = ({keyword}) => {
+  const {user, setUser} = useContext(UserContext)
+
   const [chosenList, setChosenList] = useState([])
   const [showChooseList, setShowChooseList] = useState(false)
   const navi = useNavigation()
-  const route = useRoute()
-  console.log('render');
-  useEffect(() => {
-    console.log('route change');
-    if(route.params){
-      setChosenList([...route.params.list])
-    }
-  }, [route])
+
+  useLayoutEffect(()=>{
+    setChosenList(user.followList)
+  }, [user])
 
   const searchList = showChooseList && 
   list.filter(item => item.currency.toLowerCase().includes(keyword.toLowerCase()))
@@ -108,7 +110,10 @@ const FollowList = ({keyword}) => {
             contentContainerStyle={{ padding: 10, maxWidth: "100%" }}
             ListFooterComponent={
               <View style={{ marginHorizontal: 20 }}>
-                <CustomButton text="Confirm" active={chosenList.length > 0} onHandlePress={() => setShowChooseList(false)} wrapStyle={{marginTop: 10}} />
+                <CustomButton text="Confirm" active={chosenList.length > 0} onHandlePress={() => {
+                  setUser({...user, followList: chosenList})
+                  setShowChooseList(false)
+                }} wrapStyle={{marginTop: 10}} />
               </View>
             }
           />

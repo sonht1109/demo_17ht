@@ -8,7 +8,7 @@ import { Picker } from '@react-native-community/picker';
 import globalStyles from '../../styles';
 import locales from '../locales';
 import CustomButton from '../components/CustomButton';
-import { AuthContext } from '../../App';
+import { AuthContext } from '../common/context';
 import userInfo from '../useInfo';
 import CustomDialog from '../components/CustomDialog';
 

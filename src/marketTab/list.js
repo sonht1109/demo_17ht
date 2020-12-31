@@ -35,13 +35,13 @@ const list = [
         id: 5,
         currency: "KHR",
         city: "Hanoi",
-        buyIn: "5.73366",
-        sellOut: "5.73366",
+        buyIn: "17,872.8",
+        sellOut: "17,772.8",
         rate: "- 0.005%"
     },
     {
         id: 6,
-        currency: "KHR",
+        currency: "CAD",
         city: "Hanoi",
         buyIn: "5.73366",
         sellOut: "5.73366",
@@ -49,86 +49,38 @@ const list = [
     },
     {
         id: 7,
-        currency: "KHR",
+        currency: "CNY",
         city: "Hanoi",
-        buyIn: "5.73366",
-        sellOut: "5.73366",
+        buyIn: "3,532.86",
+        sellOut: "3,522.92",
         rate: "- 0.005%"
     },
     {
         id: 8,
-        currency: "KHR",
+        currency: "INR",
         city: "Hanoi",
-        buyIn: "5.73366",
-        sellOut: "5.73366",
+        buyIn: "318.130",
+        sellOut: "318.130",
         rate: "- 0.005%"
     },
     {
         id: 9,
-        currency: "KHR",
+        currency: "IDR",
         city: "Hanoi",
-        buyIn: "5.73366",
-        sellOut: "5.73366",
+        buyIn: "1.64190",
+        sellOut: "1.64190",
         rate: "- 0.005%"
     },
     {
         id: 10,
-        currency: "KHR",
+        currency: "JPY",
         city: "Hanoi",
-        buyIn: "5.73366",
-        sellOut: "5.73366",
+        buyIn: "232.887",
+        sellOut: "231.893",
         rate: "- 0.005%"
     },
     {
         id: 11,
-        currency: "KHR",
-        city: "Hanoi",
-        buyIn: "5.73366",
-        sellOut: "5.73366",
-        rate: "- 0.005%"
-    },
-    {
-        id: 12,
-        currency: "KHR",
-        city: "Hanoi",
-        buyIn: "5.73366",
-        sellOut: "5.73366",
-        rate: "- 0.005%"
-    },
-    {
-        id: 13,
-        currency: "KHR",
-        city: "Hanoi",
-        buyIn: "5.73366",
-        sellOut: "5.73366",
-        rate: "- 0.005%"
-    },
-    {
-        id: 14,
-        currency: "KHR",
-        city: "Hanoi",
-        buyIn: "5.73366",
-        sellOut: "5.73366",
-        rate: "- 0.005%"
-    },
-    {
-        id: 15,
-        currency: "KHR",
-        city: "Hanoi",
-        buyIn: "5.73366",
-        sellOut: "5.73366",
-        rate: "- 0.005%"
-    },
-    {
-        id: 16,
-        currency: "KHR",
-        city: "Hanoi",
-        buyIn: "5.73366",
-        sellOut: "5.73366",
-        rate: "- 0.005%"
-    },
-    {
-        id: 17,
         currency: "KHR",
         city: "Hanoi",
         buyIn: "5.73366",

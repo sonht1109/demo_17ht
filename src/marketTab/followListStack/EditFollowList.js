@@ -1,11 +1,12 @@
 import { useRoute, useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import DraggableFlatList from 'react-native-draggable-flatlist';
 import Icon from 'react-native-vector-icons/Ionicons';
 import globalStyles from '../../../styles';
+import {UserContext} from '../../common/context'
 
-const renderItem = ({ item, index, drag, isActive }, list, setList, deleteList, setDeleteList) => {
+const renderItem = ({ item, index, drag, isActive }, editList, setList, deleteList, setDeleteList) => {
     return (
         <View style={[{ width: "100%", paddingHorizontal: 20 }, isActive && { transform: [{ scale: 1.02 }] }]}>
             <View style={{ flexDirection: "row", paddingVertical: 20 }}>
@@ -30,36 +31,38 @@ const renderItem = ({ item, index, drag, isActive }, list, setList, deleteList, 
                     </Text>
                     <Icon name="arrow-up-outline" size={20} color="#D1D1D1" style={{ flex: 0.2, textAlign: "center" }}
                         onPress={() => {
-                            let temp = list[0]
-                            list[0] = item
-                            list[index] = temp
-                            setList([...list])
+                            let temp = editList[0]
+                            editList[0] = item
+                            editList[index] = temp
+                            setList([...editList])
                         }}
                     />
                     <Icon name="menu-outline" size={20} color="#D1D1D1" style={{ flex: 0.2, textAlign: "center" }} onLongPress={drag} />
                 </View>
             </View>
             {
-                index !== list.length - 1 &&
+                index !== editList.length - 1 &&
                 <View style={{ height: 0.5, backgroundColor: "#D7E4F3", width: "85%", marginLeft: "auto" }} />
             }
         </View>
     )
 }
 
+//main
 const EditFollowList = () => {
     const route = useRoute()
     const navi = useNavigation()
-    const [list, setList] = useState(route.params.list || [])
-    console.log(route.params.list.length);
+    const [editList, setList] = useState(route.params.list || [])
     const [deleteList, setDeleteList] = useState([])
+    const {user, setUser} = useContext(UserContext)
 
     useEffect(() => {
         navi.setOptions({
             headerRight: () => (
                 <Text onPress={() => {
+                    setUser({...user, followList: editList})
                     navi.navigate('Market', {
-                        list
+                        list: editList
                     })
                 }}
                     style={{ marginRight: 20, fontWeight: "bold", fontSize: 16 }}>
@@ -67,7 +70,7 @@ const EditFollowList = () => {
                 </Text>
             )
         })
-    }, [navi, list])
+    }, [editList])
 
     return (
         <View style={[globalStyles.smallContainer, { paddingHorizontal: 0 }]}>
@@ -79,10 +82,10 @@ const EditFollowList = () => {
                 </View>
             </View>
             <DraggableFlatList
-                data={list}
+                data={editList}
                 style={{ flex: 1}}
                 renderItem={({ item, index, drag, isActive }) =>
-                    renderItem({ item, index, drag, isActive }, list, setList, deleteList, setDeleteList)}
+                    renderItem({ item, index, drag, isActive }, editList, setList, deleteList, setDeleteList)}
                 keyExtractor={(item) => `drag-item-${item.id}`}
                 onDragEnd={({ data }) => {
                     setList([...data])
@@ -92,10 +95,10 @@ const EditFollowList = () => {
                 <Icon
                     name="checkmark-circle"
                     size={20}
-                    color={deleteList.length === list.length ? "#FAD939" : "#d1d1d1"}
+                    color={deleteList.length === editList.length ? "#FAD939" : "#d1d1d1"}
                     style={{flex: 0.15}}
                     onPress={() => {
-                        deleteList.length === list.length ? setDeleteList([]) : setDeleteList([...list])
+                        deleteList.length === editList.length ? setDeleteList([]) : setDeleteList([...editList])
                     }}
                 />
                 <Text
@@ -105,15 +108,18 @@ const EditFollowList = () => {
                 </Text>
                 <Text
                 onPress={() => {
-                    if(deleteList.length === list.length){
+                    if(deleteList.length === editList.length){
                         setList([])
                     }
                     else{
+                        let cloneArr = editList.slice()
                         deleteList.forEach(item => {
-                            list.splice(list.indexOf(item), 1)
+                            cloneArr.splice(cloneArr.indexOf(item), 1)
                         })
-                        setList([...list])
+                        
+                        setList([...cloneArr])
                     }
+                    setDeleteList([])
                 }}
                 >Delete</Text>
             </View>

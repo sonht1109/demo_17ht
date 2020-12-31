@@ -2,7 +2,6 @@ import React from 'react'
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import Market from './Market';
 import EditFollowList from './followListStack/EditFollowList';
-import { Text } from 'react-native';
 
 const MarketStack = createStackNavigator()
 

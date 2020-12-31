@@ -1,12 +1,11 @@
 import React, { useContext } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { ScrollView, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import userInfo from '../useInfo';
 import { features } from './features'
 import CustomButton from '../components/CustomButton';
 import { useState } from 'react/cjs/react.development';
 import { useNavigation } from '@react-navigation/native';
-import { AuthContext } from '../../App';
+import { AuthContext, UserContext } from '../common/context';
 
 export const handlePhoneNumber = (phone, showPhone) => {
   let str = ''
@@ -17,7 +16,7 @@ export const handlePhoneNumber = (phone, showPhone) => {
   return phone.substring(0, 2) + (showPhone ? phone.substring(2).substring(0, phone.substring(2).length - 2) : str) + phone.substring(index)
 }
 
-const header = (showPhone, setShowPhone, navigation) => {
+const header = (user, showPhone, setShowPhone, navigation) => {
   return (
     <View style={{ paddingHorizontal: 20, paddingBottom: 20 }}>
       <Text style={{ fontSize: 36, fontWeight: 'bold', marginBottom: 20 }}>
@@ -30,7 +29,7 @@ const header = (showPhone, setShowPhone, navigation) => {
           <View style={{ marginLeft: 20 }}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Text style={{ marginRight: 15 }}>
-                {handlePhoneNumber(userInfo.phone, showPhone)}
+                {handlePhoneNumber(user.phone, showPhone)}
               </Text>
               <TouchableWithoutFeedback
                 style={{width: 20, height: 20, justifyContent: "center", alignItems: "center"}}
@@ -39,7 +38,7 @@ const header = (showPhone, setShowPhone, navigation) => {
                 <Image width={20} height={20} source={require('../../assets/img/eye_off.png')} />
               </TouchableWithoutFeedback>
             </View>
-            <Text style={{ color: "#828282" }}>ID: {userInfo.ID}</Text>
+            <Text style={{ color: "#828282" }}>ID: {user.ID}</Text>
           </View>
         </View>
 
@@ -92,14 +91,16 @@ export const border = () => {
 
 // main
 const Info = () => {
+
+  const authContext = useContext(AuthContext)
+  const user = useContext(UserContext).user
   const [showPhone, setShowPhone] = useState(false)
   const navigation = useNavigation()
-  const authContext = useContext(AuthContext)
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={{ width: "100%" }}>
-        {header(showPhone, setShowPhone, navigation)}
+        {header(user, showPhone, setShowPhone, navigation)}
         {border()}
         {mapFeatures(navigation)}
         {border()}
