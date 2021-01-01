@@ -1,25 +1,26 @@
 import React, { useContext, useState } from 'react';
 import {
-	Alert,
-	Keyboard, Modal, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View
+	Keyboard, Modal, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View
 }
 	from 'react-native';
 import { Picker } from '@react-native-community/picker';
 import globalStyles from '../../styles';
 import locales from '../locales';
 import CustomButton from '../components/CustomButton';
-import { AuthContext } from '../common/context';
+import { AuthContext, LocaleContext } from '../common/context';
 import userInfo from '../useInfo';
 import CustomDialog from '../components/CustomDialog';
 
-const mapLocale = (locale, setLocale, setShowModal) => {
+const mapLocale = (localeValue, locale, setLocale, setShowModal) => {
 	return locales.map((item, index) => {
 		return (
 			<View style={locale === item.key && styles.isPicked} key={index}>
 				<Text style={{ padding: 20 }} onPress={() => {
 					setLocale(item.key);
 					setShowModal(false);
-				}}>{item.name}</Text>
+				}}>
+					{item.name}
+				</Text>
 			</View>
 		)
 	})
@@ -45,7 +46,6 @@ const checkBtn = (isLogin, text, pass, code)=>{
 
 const Signup = ({ navigation }) => {
 	const [selectedItem, setSelectedItem] = useState('+84');
-	const [locale, setLocale] = useState('en');
 	const [text, setText] = useState('');
 	const [pass, setPass] = useState('');
 	const [showModal, setShowModal] = useState(false);
@@ -59,6 +59,9 @@ const Signup = ({ navigation }) => {
 	});
 
 	const authContext = useContext(AuthContext)
+
+	const {localeValue, locale, setLocale} = useContext(LocaleContext)
+	const {try_again, invalid_user, language, log_in, sign_up, phone, password, or_sign_up, or_log_in, forgot_pass} = localeValue.signup
 
 	const checkSubmit = () => {
 		// if (text !== '') {
@@ -83,8 +86,8 @@ const Signup = ({ navigation }) => {
 			setCustomAlert({
 				...customAlert,
 				visible: true,
-				title: "User is invalid !",
-				subtitle: "Please try again !"
+				title: invalid_user,
+				subtitle: try_again
 			})
 		}
 	}
@@ -100,10 +103,12 @@ const Signup = ({ navigation }) => {
 						visible={showModal}
 					>
 						<View style={globalStyles.modal}>
-							<Text style={[styles.modalPicker, { padding: 20, textAlign: "center" }]}>Language</Text>
+							<Text style={[styles.modalPicker, { padding: 20, textAlign: "center" }]}>
+								{language}
+							</Text>
 
 							<View style={styles.modalPicker}>
-								{mapLocale(locale, setLocale, setShowModal)}
+								{mapLocale(localeValue, locale, setLocale, setShowModal)}
 							</View>
 						</View>
 					</Modal>
@@ -111,7 +116,7 @@ const Signup = ({ navigation }) => {
 					<View style={{ display: 'flex', flexDirection: 'row', alignItems: "center" }}>
 
 						<Text style={globalStyles.title}>
-							{isLogin ? "Log In" : "Sign Up"}
+							{isLogin ? log_in : sign_up}
 						</Text>
 
 						<Text
@@ -137,7 +142,7 @@ const Signup = ({ navigation }) => {
 						</Picker>
 						<TextInput
 							style={[globalStyles.input, { width: '70%' }]}
-							placeholder="Phone number"
+							placeholder={phone}
 							defaultValue={selectedItem}
 							keyboardType="numeric"
 							onChangeText={(text) => setText(text)}
@@ -147,7 +152,7 @@ const Signup = ({ navigation }) => {
 					<TextInput
 						style={[globalStyles.input,
 						{ borderColor: pass.length < 8 && pass.length > 0 ? "#EB5757" : "#DFDFDF" }]}
-						placeholder="Password"
+						placeholder={password}
 						secureTextEntry={true}
 						onChangeText={(text) => { setPass(text) }}
 					/>
@@ -172,7 +177,7 @@ const Signup = ({ navigation }) => {
 								setIsLogin(!isLogin);
 								setCode('');
 							}}>
-							{isLogin ? "or Sign up" : "or Log in"}
+							{isLogin ? or_sign_up : or_log_in}
 						</Text>
 
 						{
@@ -180,13 +185,13 @@ const Signup = ({ navigation }) => {
 							<Text
 								style={{ marginLeft: "auto", color: "#f2c94c" }}
 								onPress={() => navigation.navigate("ForgotPass")}>
-								Forgot password ?
+								{forgot_pass}
 							</Text>
 						}
 					</View>
 
 					<CustomButton
-					text={isLogin ? "Log in" : "Sign up"}
+					text={isLogin ? log_in : sign_up}
 					active={checkBtn(isLogin, text, pass, code)}
 					onHandlePress={checkLogin}
 					/>

@@ -1,0 +1,29 @@
+{
+    "info": {
+        "account": "Account",
+        "Language": "Language",
+        "Verify": "Verify",
+        "Message": "Message",
+        "Address": "Address",
+        "Security": "Security",
+        "Settings": "Settings",
+        "Support": "Support",
+        "ShareApp": "Share app",
+        "log_out": "Log out",
+        "chosen": "Chosen"
+    },
+    "signup": {
+        "language": "Language",
+        "sign_up": "Sign up",
+        "password": "Password",
+        "code": "code",
+        "or_log_in": "or Log in",
+        "or_sign_up": "or Sign up",
+        "log_in": "Log in",
+        "forgot_pass": "Forgot password",
+        "invalid_user": "User is invalid !",
+        "try_again": "Please try again !",
+        "phone": "Phone number"
+    }
+
+}

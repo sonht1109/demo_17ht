@@ -31,7 +31,7 @@ export const features = [
     },
     {
         key: 6,
-        name: "Share app",
+        name: "ShareApp",
         icon: require('../../assets/img/icon/share.png'),
         // icon: "../../assets/img/icon/mess"
     }

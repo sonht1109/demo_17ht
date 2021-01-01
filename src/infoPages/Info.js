@@ -5,7 +5,7 @@ import { features } from './features'
 import CustomButton from '../components/CustomButton';
 import { useState } from 'react/cjs/react.development';
 import { useNavigation } from '@react-navigation/native';
-import { AuthContext, UserContext } from '../common/context';
+import { AuthContext, UserContext, LocaleContext } from '../common/context';
 
 export const handlePhoneNumber = (phone, showPhone) => {
   let str = ''
@@ -16,12 +16,12 @@ export const handlePhoneNumber = (phone, showPhone) => {
   return phone.substring(0, 2) + (showPhone ? phone.substring(2).substring(0, phone.substring(2).length - 2) : str) + phone.substring(index)
 }
 
-const header = (user, showPhone, setShowPhone, navigation) => {
+const header = (translate, user, showPhone, setShowPhone, navigation) => {
   return (
     <View style={{ paddingHorizontal: 20, paddingBottom: 20 }}>
       <Text style={{ fontSize: 36, fontWeight: 'bold', marginBottom: 20 }}>
-        Account
-            </Text>
+        {translate.account}
+      </Text>
       <View style={{ flexDirection: "row" }}>
 
         <View style={{ alignItems: "center", flexDirection: "row", flexGrow: 1 }}>
@@ -46,7 +46,9 @@ const header = (user, showPhone, setShowPhone, navigation) => {
           <TouchableOpacity
             style={styles.verifyBtn}
             onPress={() => navigation.navigate("Verify")}>
-            <Text style={{ marginRight: 10, fontWeight: '400' }}>Verify</Text>
+            <Text style={{ marginRight: 10, fontWeight: '400' }}>
+              {translate.Verify}
+            </Text>
             <Image source={require('../../assets/img/icon/black_arrow.png')} />
           </TouchableOpacity>
         </View>
@@ -56,7 +58,7 @@ const header = (user, showPhone, setShowPhone, navigation) => {
   )
 }
 
-const renderItem = (navigation) => {
+const renderItem = (navigation, translate) => {
   return features.map((item, index) => {
     return (
       <TouchableOpacity key={index} onPress={() => navigation.navigate(item.name)}>
@@ -64,7 +66,9 @@ const renderItem = (navigation) => {
           <View style={{ marginRight: 24 }} width={20}>
             <Image source={item.icon}  />
           </View>
-          <Text style={{ flexGrow: 1, fontSize: 14, fontWeight: '400' }}>{item.name}</Text>
+          <Text style={{ flexGrow: 1, fontSize: 14, fontWeight: '400' }}>
+            {translate[item.name]}
+          </Text>
           <Image source={require("../../assets/img/icon/right_arrow.png")} />
         </View>
         <View style={{ width: "100%", height: 0.5, backgroundColor: "#E0E0E0" }}></View>
@@ -73,10 +77,10 @@ const renderItem = (navigation) => {
   })
 }
 
-const mapFeatures = (navigation) => {
+const mapFeatures = (navigation, translate) => {
   return (
     <View style={{ paddingHorizontal: 20 }}>
-      {renderItem(navigation)}
+      {renderItem(navigation, translate)}
     </View>
   )
 }
@@ -97,15 +101,17 @@ const Info = () => {
   const [showPhone, setShowPhone] = useState(false)
   const navigation = useNavigation()
 
+  const translate = useContext(LocaleContext).localeValue.info
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={{ width: "100%" }}>
-        {header(user, showPhone, setShowPhone, navigation)}
+        {header(translate, user, showPhone, setShowPhone, navigation)}
         {border()}
-        {mapFeatures(navigation)}
+        {mapFeatures(navigation, translate)}
         {border()}
         <View style={{ padding: 20 }}>
-          <CustomButton active={true} text="Log out" onHandlePress={
+          <CustomButton active={true} text={translate.log_out} onHandlePress={
             ()=>authContext.setAuth(false)
           } />
           <Text

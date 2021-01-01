@@ -1,16 +1,16 @@
 import React, { useContext, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
-import SignupTab from './src/loginPages/SignupTab';
-import InfoTab from './src/infoPages/InfoTab';
+import SignupTab from './loginPages/SignupTab';
+import InfoTab from './infoPages/InfoTab';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons'
-import MarketTab from './src/marketTab/index';
-import { AuthContext, useAuth } from './src/common/context';
+import MarketTab from './marketTab/index';
+import { AuthContext } from './common/context';
 
 const Tab = createBottomTabNavigator()
 
 const App = () => {
-  const {isAuth} = useAuth
+  const {isAuth} = useContext(AuthContext)
   return (
         <NavigationContainer>
           <Tab.Navigator

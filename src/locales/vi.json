@@ -1,0 +1,28 @@
+{
+    "info": {
+        "account": "Tai khoan",
+        "Language": "Ngon ngu",
+        "Verify": "Xac minh",
+        "Message": "Tin nhan",
+        "Address": "Dia chi",
+        "Security": "Bao mat",
+        "Settings": "Cai dat",
+        "Support": "Ho tro",
+        "ShareApp": "Chia se ung dung",
+        "log_out": "Dang xuat",
+        "chosen": "Dang chon"
+    },
+    "signup": {
+        "language": "Ngon ngu",
+        "sign_up": "Dang ki",
+        "password": "Mat khau",
+        "code": "Code",
+        "or_log_in": "hoac Dang nhap",
+        "or_sign_up": "hoac Dang ki",
+        "log_in": "Dang nhap",
+        "forgot_pass": "Quen mat khau",
+        "invalid_user": "Nguoi dung khong ton tai !",
+        "try_again": "Vui long thu lai !",
+        "phone": "So dien thoai"
+    }
+}
